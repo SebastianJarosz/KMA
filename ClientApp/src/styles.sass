@@ -1,0 +1,26 @@
+/* You can add global styles to this file, and also import other style files */
+@import variables
+
+body
+    background-image: url($background-url)
+    background-size: cover
+.confirm-btn
+    background: $confirm-btn-color
+    color: $confirm-btn-text-color
+.sign-in-window
+    background: $glass-card-color
+    backdrop-filter: blur($glass-blur)
+    padding: $card-padding
+    border-radius: $card-radius
+    
+    .mat-button-disabled
+        background-color:  $disabled-btn-color !important
+    .mat-form-field-label
+        color: $glass-label-color
+    input
+        color: $glass-text-color
+    .mat-icon
+        color: $glass-label-color
+    .mat-card-header
+        color: $glass-label-color
+        padding-bottom: $card-padding 
