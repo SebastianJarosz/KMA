@@ -1,0 +1,8 @@
+<div
+    *ngIf="isNotEmpty">
+    <app-order-ticket 
+    *ngFor="let order of orderList; let i = index" 
+        class="row"
+        [order]="order"
+    ></app-order-ticket>
+</div> 

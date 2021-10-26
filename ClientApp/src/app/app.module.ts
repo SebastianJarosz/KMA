@@ -1,28 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LoginViewComponent } from './components/login-view/login-view.component';
-import { SignInComponent } from './components/login-view/sign-in/sign-in.component';
-import { SignUpComponent } from './components/login-view/sign-up/sign-up.component';
-import { MainPanelComponent } from './components/main-panel/main-panel.component';
-import { NavbarComponent } from './components/main-panel/navbar/navbar.component';
-import { OrdersManagmentComponent } from './components/main-panel/orders-managment/orders-managment.component';
-import { OrderComponent } from './components/main-panel/orders-managment/order/order.component';
-import { OrderItemComponent } from './components/main-panel/orders-managment/order/order-item/order-item.component';
-import { CustomerViewComponent } from './components/customer-view/customer-view.component';
-import { InProgressSectionComponent } from './components/customer-view/in-progress-section/in-progress-section.component';
-import { ReadySectionComponent } from './components/customer-view/ready-section/ready-section.component';
-import { InProgressTicketComponent } from './components/customer-view/in-progress-section/in-progress-ticket/in-progress-ticket.component';
-import { ReadyTicketComponent } from './components/customer-view/in-progress-section/ready-ticket/ready-ticket.component';
-import { ManagerPanelComponent } from './components/manager-panel/manager-panel.component';
-import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
-import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 import { MatSliderModule } from '@angular/material/slider';
 import { MatCardModule } from '@angular/material/card';
@@ -41,26 +23,35 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatRadioModule } from '@angular/material/radio';
+
+
+import { OrdersViewComponent } from './components/orders-view/orders-view.component';
+import { ActiveOrdersComponent } from './components/orders-view/active-orders/active-orders.component';
+import { OldOrdersComponent } from './components/orders-view/old-orders/old-orders.component';
+import { OrderService } from './components/orders-view/shared/services/order.service';
+import { UrlSettings } from './shared/models/url-settings.model';
+import { TopNavbarComponent } from './components/orders-view/top-navbar/top-navbar.component';
+import { CustomerViewComponent } from './components/customer-view/customer-view.component';
+import { InprogressComponent } from './components/customer-view/inprogress/inprogress.component';
+import { ReadyComponent } from './components/customer-view/ready/ready.component';
+import { OrderTicketComponent } from './components/orders-view/shared/components/order-ticket/order-ticket.component';
+import { OrderTicketPostionComponent } from './components/orders-view/shared/components/order-ticket-postion/order-ticket-postion.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginViewComponent,
-    SignInComponent,
-    SignUpComponent,
-    MainPanelComponent,
-    NavbarComponent,
-    OrdersManagmentComponent,
-    OrderComponent,
-    OrderItemComponent,
+    OrdersViewComponent,
+    ActiveOrdersComponent,
+    OldOrdersComponent,
+    TopNavbarComponent,
     CustomerViewComponent,
-    InProgressSectionComponent,
-    ReadySectionComponent,
-    InProgressTicketComponent,
-    ReadyTicketComponent,
-    ManagerPanelComponent,
-    AdminPanelComponent,
-    PageNotFoundComponent
+    InprogressComponent,
+    ReadyComponent,
+    OrderTicketComponent,
+    OrderTicketPostionComponent
   ],
   imports: [
     BrowserModule,
@@ -85,8 +76,14 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatDialogModule,
     MatTableModule,
     MatGridListModule,
+    MatDividerModule,
+    MatRadioModule,
   ],
-  providers: [],
+  providers: [
+    UrlSettings,
+    OrderService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+1
