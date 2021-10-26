@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormArray, FormGroup } from '@angular/forms';
 import { OrderPostion } from '../../models/order.model';
 
 @Component({
@@ -21,5 +22,7 @@ export class OrderTicketPostionComponent implements OnInit {
     this.quantityOfMenuPostion = this.orderPostion?.quantityOfMenuPostion;
     this.isReady = this.orderPostion?.isReady;
   }
+  onSubmit(){
 
+  }
 }

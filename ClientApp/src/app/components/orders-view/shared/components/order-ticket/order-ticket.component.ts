@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormArray, FormGroup } from '@angular/forms';
 import { map } from 'rxjs/operators';
 import { Order, OrderPostion } from '../../models/order.model';
 
@@ -9,6 +10,8 @@ import { Order, OrderPostion } from '../../models/order.model';
 })
 export class OrderTicketComponent implements OnInit {
 
+  orderForm: FormGroup = new FormGroup({});
+  orderPostionArray = new FormArray([]);
   orderGuid?: string;
   orderNumber?: number;
   creationTime?: Date;
@@ -23,6 +26,9 @@ export class OrderTicketComponent implements OnInit {
     this.orderNumber = this.order?.orderNumber;
     this.status = this.order?.status;
     this.orderPostionList = this.order?.orderPostion;
+  }
+  onSubmit(){
+    
   }
 
 }

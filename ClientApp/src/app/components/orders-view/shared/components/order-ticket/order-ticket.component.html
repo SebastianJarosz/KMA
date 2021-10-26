@@ -1,15 +1,16 @@
 
 <mat-card>
-    <mat-card-title>
-        {{orderNumber | number:'2.0'}}
-    </mat-card-title>
-    <mat-divider></mat-divider>
-    <app-order-ticket-postion
-    *ngFor="let orderPostion of orderPostionList; let i = index" 
-    class="row"
-    [orderPostion]="orderPostion"
-    >
-    </app-order-ticket-postion>
-    
+    <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+        <mat-card-title>
+            {{orderNumber | number:'2.0'}}
+        </mat-card-title>
+        <mat-divider></mat-divider>
+        <app-order-ticket-postion
+        *ngFor="let orderPostion of orderPostionList; let i = index" 
+        class="row"
+        [orderPostion]="orderPostion"
+        >
+        </app-order-ticket-postion>
+    </form>
 </mat-card>
 
