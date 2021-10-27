@@ -1,1 +1,16 @@
-<p>old-orders works!</p>
+<mat-card [class.mat-elevation-z12]="true">
+    <mat-card-content
+        *ngIf="isNotEmpty">
+        <app-order-ticket 
+        *ngFor="let order of orderList; let i = index" 
+            class="row"
+            [order]="order"
+        ></app-order-ticket>
+    </mat-card-content>
+    <mat-card-content
+    *ngIf="!isNotEmpty">
+        <mat-card-subtitle>
+            Brak ostatnich zamówień.
+        </mat-card-subtitle>
+    </mat-card-content>
+</mat-card>

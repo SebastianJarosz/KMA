@@ -1,0 +1,10 @@
+.mat-card-content{
+      overflow-x: auto;
+      display: flex;
+      flex-direction: row;
+  }
+  .row{
+      margin: 0 12px 12px 12px ;
+      max-width:25%;
+      min-width:300px;
+  }

@@ -1,0 +1,21 @@
+.mat-card{
+    background-color: whitesmoke;
+    padding: 0;
+    min-height: 400px;
+    max-height: 600px;
+}
+.mat-card-header{
+    padding: 12px 12px 0 12px;
+    border-bottom: solid 1px #bdbdbd;
+}
+.mat-card-content{
+    padding: 12px;
+}
+.mat-card-footer{
+    padding-top: 8px;
+    border-top: solid 1px #696868;
+}
+.div-scroll{
+    height: 148px;
+    overflow-y: auto;
+}

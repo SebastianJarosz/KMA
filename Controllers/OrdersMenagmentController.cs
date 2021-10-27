@@ -43,8 +43,8 @@ namespace KMA.Controllers
                 {
                     var orderListDTO = orderList
                         .Select(order => _mapper.Map<OrderDTO>(order))
-                        .Where(order => order.Status != Status.Closed.ToString()
-                               && order.Status != Status.Aborted.ToString())
+                        .Where(order => order.Status == Status.Ready.ToString()
+                               || order.Status == Status.InProgress.ToString())
                         .OrderBy(order => order.CreationTime)
                         .ToList();
 

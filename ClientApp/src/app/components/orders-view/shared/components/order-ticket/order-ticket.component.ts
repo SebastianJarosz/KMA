@@ -18,6 +18,7 @@ export class OrderTicketComponent implements OnInit {
   modificationTime?: Date;
   status?: string;
   orderPostionList?: Array<OrderPostion>;
+  statusColor?: string;
   constructor() { }
 
   @Input() order?: Order;
@@ -26,9 +27,18 @@ export class OrderTicketComponent implements OnInit {
     this.orderNumber = this.order?.orderNumber;
     this.status = this.order?.status;
     this.orderPostionList = this.order?.orderPostion;
+    if(this.status == "InProgress"){
+      this.statusColor = "#fdff8b"; 
+    }
+    else if(this.status == "Ready"){
+      this.statusColor = "#8bffa4";
+    }
+    else{
+      this.statusColor = "#696868";
+    }
   }
   onSubmit(){
-    
+
   }
 
 }
