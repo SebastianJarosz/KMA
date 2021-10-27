@@ -62,6 +62,64 @@ namespace KMA.Controllers
                 return StatusCode(500);
             }
         }
+        // GET: api/<ProductsMenagmentController>/v1/ReadyOrders
+        [HttpGet("ReadyOrders")]
+        public async Task<Object> GetReadyOrders()
+        {
+            try
+            {
+                var orderList = await _orderRepository.GetAllAsync();
+                if (orderList != null)
+                {
+                    var orderListDTO = orderList
+                        .Select(order => _mapper.Map<OrderDTO>(order))
+                        .Where(order => order.Status == Status.Ready.ToString())
+                        .OrderBy(order => order.CreationTime)
+                        .ToList();
+
+                    foreach (var orderDTO in orderListDTO)
+                    {
+                        var orderPostion = await _orderPostionPicker.AsyncGetAllItems(orderDTO.OrderGuid);
+                        orderDTO.OrderPostion = orderPostion.ToList();
+                    }
+                    return orderListDTO;
+                }
+                return StatusCode(204);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500);
+            }
+        }
+        // GET: api/<ProductsMenagmentController>/v1/OrdersInProgress
+        [HttpGet("OrdersInProgress")]
+        public async Task<Object> GetOrdersInProgres()
+        {
+            try
+            {
+                var orderList = await _orderRepository.GetAllAsync();
+                if (orderList != null)
+                {
+                    var orderListDTO = orderList
+                        .Select(order => _mapper.Map<OrderDTO>(order))
+                        .Where(order => order.Status == Status.InProgress.ToString())
+                        .OrderBy(order => order.CreationTime)
+                        .ToList();
+
+                    foreach (var orderDTO in orderListDTO)
+                    {
+                        var orderPostion = await _orderPostionPicker.AsyncGetAllItems(orderDTO.OrderGuid);
+                        orderDTO.OrderPostion = orderPostion.ToList();
+                    }
+                    return orderListDTO;
+                }
+                return StatusCode(204);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500);
+            }
+        }
         // GET: api/<ProductsMenagmentController>/v1/ClosedOrders
         [HttpGet("ClosedOrders")]
         public async Task<Object> GetClosedOrders()

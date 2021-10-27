@@ -1,1 +1,31 @@
-<p>customer-view works!</p>
+<div class="background">
+    <div class="header">
+        <div class="header-inProgress">
+            <div>
+                <h1>Zamówienia w przygotowaniu</h1>
+            </div>
+        </div>
+        
+        <div class="header-ready">
+            <div>
+                <h1>Do odbioru</h1>
+            </div>
+        </div>
+    </div>
+    <div class="board">
+        <div class="column-inProgress">
+            <app-inprogress
+            *ngFor="let order of inProgressOrderList; let i = index" 
+            [order]="order">
+            </app-inprogress>
+        
+        </div>
+        
+        <div class="column-ready">
+            <app-ready
+            *ngFor="let order of readyOrderList; let i = index" 
+            [order]="order">
+            </app-ready>
+        </div>
+    </div>    
+</div>

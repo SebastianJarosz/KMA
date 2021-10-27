@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Order } from '../../orders-view/shared/models/order.model';
 
 @Component({
   selector: 'app-inprogress',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InprogressComponent implements OnInit {
 
+  orderNumber?: number;
   constructor() { }
 
+  @Input() order?: Order;
   ngOnInit(): void {
+    this.orderNumber=this.order?.orderNumber;
   }
 
 }

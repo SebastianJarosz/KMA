@@ -1,0 +1,13 @@
+mat-card{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 256px;
+    height: 96px;
+    margin: 24px;
+    text-align: center;
+}
+mat-card h1{
+    font-size: 72px;
+    margin: 0;
+}
