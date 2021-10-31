@@ -29,13 +29,12 @@ GetActiveOrders(){
   this.orderService.getAll(`${this.url.baseUrl}OrdersMenagment/v1/Orders`)
   .subscribe(responseData  => {
     this.orderList = responseData;
-    console.log(this.orderList);
     this.isNotEmpty = (this.orderList.length > 0) ? true : false;
     },
     error => {
         if(error.status == 404){
-          this.error = 'Odmowa dostępu';
-          console.error('Odmowa dostępu');
+          this.error = 'Błędny aders';
+          console.error('Błędny aders');
         }else if(error.status == 500){
           this.error = 'Błąd połączenia z serwerem';
           console.error('Błąd połaczeniaz serwerem');

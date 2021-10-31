@@ -1,0 +1,11 @@
+.background{
+    background: url(../../shared/img/background-1.jpg) center center fixed;
+    background-size: 100% 100%;
+    height: 100vh;
+    width: 100%;
+}
+router-outlet{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

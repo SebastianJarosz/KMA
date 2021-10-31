@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-top-navbar',
@@ -6,10 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./top-navbar.component.css']
 })
 export class TopNavbarComponent implements OnInit {
-
-  constructor() { }
+  
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
 
+  goToOrderView(url: string){
+    this.router.navigate([`/orders-view/${url}`]);
+  }
 }

@@ -3,8 +3,8 @@ import { IGlobalItem } from "src/app/shared/interfaces/iglobal-item.models"
 export class Order implements IGlobalItem{
     orderGuid?: string;
     orderNumber?: number;
-    creationTime?: Date;
-    modificationTime?: Date;
+    creationTime?: string | any;
+    modificationTime?: string | any;
     status?: string;
     orderPostion?: Array<OrderPostion>;
 

@@ -1,21 +1,52 @@
 .mat-card{
-    background-color: whitesmoke;
+    background-color: rgba(245, 245, 245, 0.8);
+    backdrop-filter: blur(6px);
     padding: 0;
-    min-height: 400px;
+    min-height: 200px;
     max-height: 600px;
 }
-.mat-card-header{
-    padding: 12px 12px 0 12px;
+mat-card-header{
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    height: 48px;
+    padding: 6px 6px 0 6px;
     border-bottom: solid 1px #bdbdbd;
 }
-.mat-card-content{
+mat-card-title{
+    font-size: 24px !important;
+    font-weight: 800;
+}
+mat-card-content{
+    min-height: 80px;
     padding: 12px;
 }
-.mat-card-footer{
-    padding-top: 8px;
-    border-top: solid 1px #696868;
+mat-card-footer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    background-color: rgba(117, 117, 117, 0.253);
+    border-top: solid 1px #969696;
+    font-size: 18px;
+    padding: 4px 0;
+}
+mat-card-actions{
+    margin: 0px;
 }
 .div-scroll{
-    height: 148px;
+    max-height: 364px;
     overflow-y: auto;
+}
+.light-postion{
+    font-size: 16px;
+    padding:2px;
+}
+.dark-postion{
+    background-color: rgba(143, 143, 143, 0.25);
+    font-size: 16px;
+    padding:2px;
+}
+p{
+    margin: 0;
 }

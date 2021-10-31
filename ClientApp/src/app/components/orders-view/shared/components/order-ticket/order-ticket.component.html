@@ -1,20 +1,27 @@
 <mat-card>
-    <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="orderForm" (ngSubmit)="OnSubmit()">
         <mat-card-header [ngStyle]="{'background-color': statusColor}" >
             <mat-card-title>
-                {{orderNumber | number:'2.0'}}
+               #{{orderNumber | number:'3.0'}} 
             </mat-card-title>
         </mat-card-header>
         <mat-card-content>
-            <app-order-ticket-postion
-        *ngFor="let orderPostion of orderPostionList; let i = index" 
-        class="row"
-        [orderPostion]="orderPostion"
-        >
-        </app-order-ticket-postion>
-        <mat-card-footer>
-            <button mat-raised-button color="primary">Primary</button>
-        </mat-card-footer>
+            <div class="div-scroll">
+                <div *ngFor="let orderPostionString of orderPostionStringList; let i = index" >
+                    <div 
+                        [ngClass]="i%2 == 0  ? 'light-postion' : 'dark-postion'"
+                    ><p>{{orderPostionString}}</p>
+                    </div>
+                </div> 
+            </div>
         </mat-card-content>
+        <mat-card-footer>
+            <mat-card-actions *ngIf="showTime == true">
+                <p>{{timeInPreparation | number: '1.0-0'}}</p>
+            </mat-card-actions>
+            <mat-card-actions *ngIf="showTime == false">
+                <button mat-flat-button color="accent">Accent</button>
+            </mat-card-actions>
+        </mat-card-footer>
     </form>
-</mat-card>
+</mat-card> 

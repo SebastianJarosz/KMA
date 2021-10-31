@@ -13,6 +13,7 @@ export class OrderTicketPostionComponent implements OnInit {
   menuPostionCode?: string;
   quantityOfMenuPostion?: number;
   isReady?: boolean;
+  orderPostionPresentation?: string;
 
   constructor() { }
   @Input() orderPostion?: OrderPostion;
@@ -21,6 +22,12 @@ export class OrderTicketPostionComponent implements OnInit {
     this.menuPostionCode = this.orderPostion?.menuPostionCode;
     this.quantityOfMenuPostion = this.orderPostion?.quantityOfMenuPostion;
     this.isReady = this.orderPostion?.isReady;
+    if(this.isReady){
+      this.orderPostionPresentation = "line-through";
+    } else{
+      this.orderPostionPresentation = "none";
+    }
+    
   }
   onSubmit(){
 

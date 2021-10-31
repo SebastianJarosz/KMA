@@ -1,4 +1,8 @@
-<mat-tab-group mat-align-tabs="center">
-        <mat-tab label="Aktywne zamówienia"><app-active-orders></app-active-orders></mat-tab>
-        <mat-tab label="Zamknięte zamówienia"><app-old-orders></app-old-orders></mat-tab>
-</mat-tab-group>
+<mat-toolbar color="primary">
+        <div>
+                <button mat-button color="base" (click)="goToOrderView('active-orders')">Aktualne listy zakupów</button>    
+        </div>
+        <div>
+                <button mat-button color="base" (click)="goToOrderView('old-orders')">Historia list zakupów</button>
+        </div>
+</mat-toolbar>
