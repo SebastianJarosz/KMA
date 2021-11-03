@@ -1,3 +1,7 @@
-<p [ngStyle]="{'text-decoration': orderPostionPresentation}">{{menuPostionName}} x {{quantityOfMenuPostion}}</p>
+<div [ngClass]=" postionNumber%2 == 0 ? 'light-postion' : 'dark-postion'">
+    <button mat-button (click)="updateOrderPostionStatus()"
+    [ngStyle]="{'text-decoration': orderPostionPresentation}"
+    >{{menuPostionName}} x {{quantityOfMenuPostion}}</button>
+</div>
 
 

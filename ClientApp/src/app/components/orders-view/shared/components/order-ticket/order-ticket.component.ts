@@ -22,16 +22,18 @@ export class OrderTicketComponent implements OnInit {
   timeInPreparation?: number;
   showTime?: boolean;
   orderPostionStringList?: Array<string>;
-  objectKeys = Object.keys;
+
   constructor() { }
 
   @Input() order?: Order;
+  @Input() orderIndex?: number;
   ngOnInit(): void {
     
     this.orderNumber = this.order?.orderNumber;
     this.status = this.order?.status;
     this.orderPostionList = this.order?.orderPostion;
-    this.orderPostionStringList = this.CreateOrderPostionString(this.orderPostionList);
+    this.orderGuid = this.order?.orderGuid;
+
     if(this.status == "InProgress"){
       this.statusColor = "#FEBD81"; 
       this.showTime = true;
@@ -51,15 +53,8 @@ export class OrderTicketComponent implements OnInit {
       this.showTime = false;
     }
   }
-  OnSubmit(){
+  onSubmit(){
 
-  }
-  CreateOrderPostionString(orderPostionList?: Array<OrderPostion>): Array<string>{
-    let array = new Array<string>();
-    orderPostionList?.forEach(element => {
-      array.push(`${element.menuPostionName} x ${element.quantityOfMenuPostion}`);
-    });
-    return array;
   }
 
 }

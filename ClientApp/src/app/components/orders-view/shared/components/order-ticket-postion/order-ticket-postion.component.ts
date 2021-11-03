@@ -1,6 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
-import { OrderPostion } from '../../models/order.model';
+import { Router } from '@angular/router';
+import { UrlSettings } from 'src/app/shared/models/url-settings.model';
+import { Order, OrderPostion } from '../../models/order.model';
+import { OrderService } from '../../services/order.service';
 
 @Component({
   selector: 'app-order-ticket-postion',
@@ -14,9 +17,18 @@ export class OrderTicketPostionComponent implements OnInit {
   quantityOfMenuPostion?: number;
   isReady?: boolean;
   orderPostionPresentation?: string;
+  order?: Order | any;
+  isNotEmpty?: boolean;
+  error?: string;
+  updateOrderPostion?: OrderPostion | any;
 
-  constructor() { }
+  constructor(private orderService: OrderService,
+      private url: UrlSettings,
+      private router: Router) { }
+  
   @Input() orderPostion?: OrderPostion;
+  @Input() postionNumber?: number | any;
+  @Input() orderGuid?: string | any;
   ngOnInit(): void {
     this.menuPostionName = this.orderPostion?.menuPostionName;
     this.menuPostionCode = this.orderPostion?.menuPostionCode;
@@ -27,9 +39,42 @@ export class OrderTicketPostionComponent implements OnInit {
     } else{
       this.orderPostionPresentation = "none";
     }
-    
+    this.getOreder();
   }
-  onSubmit(){
+  onSubmit(): void{
 
+  }
+  getOreder(): void{
+    this.orderService
+    .get(`${this.url?.baseUrl}OrdersMenagment/v1/Order/${this.orderGuid}`)
+    .subscribe(responseData  => {
+      this.order = responseData; 
+      this.isNotEmpty = (this.order != null) ? true : false;
+      },
+      error => {
+          if(error.status == 404){
+            this.error = 'Błędny aders';
+            console.error('Błędny aders');
+          }else if(error.status == 500){
+            this.error = 'Błąd połączenia z serwerem';
+            console.error('Błąd połaczeniaz serwerem');
+          }
+        }
+      );
+  }
+  updateOrderPostionStatus(): void{
+    // console.log(this.order);
+    console.log(this.order?.orderPostion?.entries);
+    this.updateOrderPostion = this.order?.orderPostion?[this.postionNumber]: null;
+    console.log(this.updateOrderPostion);
+    this.updateOrderPostion.isReady = !this.isReady;
+    console.log(this.updateOrderPostion);
+    this.order?.orderPostion?[this.postionNumber] = this.updateOrderPostion: null;
+    console.log(this.order); 
+    this.orderService
+            .patch(`${this.url?.baseUrl}OrdersMenagment/v1/EditOrder/${this.orderGuid}`, this.order)
+            .subscribe(responseData => {
+              console.log(responseData);
+            }); 
   }
 }

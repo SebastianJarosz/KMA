@@ -32,6 +32,27 @@ namespace KMA.Controllers
             _orderToMenuPostionRepository = orderToMenuPostionRepository;
             _orderPostionPicker = orderPostionPicker;
         }
+        // GET: api/<ProductsMenagmentController>/v1/Order/{orderGuid}
+        [HttpGet("Order/{orderGuid}")]
+        public async Task<Object> GetOrder(string orderGuid)
+        {
+            try
+            {
+                var order = await _orderRepository.GetAsync(orderGuid);
+                if (order != null)
+                {
+                    var orderDTO = _mapper.Map<OrderDTO>(order);
+                    var orderPostion = await _orderPostionPicker.AsyncGetAllItems(orderDTO.OrderGuid);
+                    orderDTO.OrderPostion = orderPostion.ToList();
+                    return orderDTO;
+                }    
+                return StatusCode(204);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500);
+            }
+        }
         // GET: api/<ProductsMenagmentController>/v1/Orders
         [HttpGet("Orders")]
         public async Task<Object> GetOpenOrders()
@@ -184,7 +205,7 @@ namespace KMA.Controllers
             }
         }
         // PUT api/<ProductsMenagmentController>/v1/EditOrder/{orderGuid}
-        [HttpPut]
+        [HttpPatch]
         [Route("EditOrder/{orderGuid}")]
         public async Task<Object> PutEditOrder(OrderDTO model, string orderGuid)
         {

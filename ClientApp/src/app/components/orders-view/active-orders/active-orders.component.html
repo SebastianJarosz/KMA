@@ -5,6 +5,7 @@
         *ngFor="let order of orderList; let i = index" 
             class="row"
             [order]="order"
+            [orderIndex]="i"
         ></app-order-ticket>
     </mat-card-content>
     <mat-card-content

@@ -1,3 +1,12 @@
-p{
+.light-postion{
     font-size: 16px;
+    padding:2px;
+}
+.dark-postion{
+    background-color: rgba(143, 143, 143, 0.25);
+    font-size: 16px;
+    padding:2px;
+}
+p{
+    margin: 0;
 }
