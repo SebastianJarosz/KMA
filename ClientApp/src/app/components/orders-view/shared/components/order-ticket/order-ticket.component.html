@@ -1,30 +1,28 @@
 <mat-card>
-    <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
-        <mat-card-header [ngStyle]="{'background-color': statusColor}" >
-            <mat-card-title>
-               #{{orderNumber | number:'3.0'}} 
-            </mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-            <div class="div-scroll">
-            <app-order-ticket-postion
-                *ngFor="let orderPostion of orderPostionList; let i = index" 
-                class="row"
-                [orderPostion]="orderPostion"
-                [postionNumber]="i"
-                [orderGuid]="orderGuid"
-                >
-                </app-order-ticket-postion>
-            </div>
-        </mat-card-content>
-        <mat-card-footer>
+    <mat-card-header [ngStyle]="{'background-color': statusColor}" >
+        <mat-card-title>
+            #{{orderNumber | number:'3.0'}} 
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="div-scroll">
+        <app-order-ticket-postion
+            *ngFor="let orderPostion of orderPostionList; let i = index" 
+            class="row"
+            [orderPostion]="orderPostion"
+            [postionNumber]="i"
+            [orderGuid]="orderGuid"
+            >
+            </app-order-ticket-postion>
+        </div>
+    </mat-card-content>
+    <mat-card-footer>
 
-            <mat-card-actions *ngIf="showTime == true">
-                <p>{{timeInPreparation | number: '1.0-0'}}</p>
-            </mat-card-actions>
-            <mat-card-actions *ngIf="showTime == false">
-                <button mat-flat-button color="accent">Accent</button>,
-            </mat-card-actions>
-        </mat-card-footer>
-    </form>
+        <mat-card-actions *ngIf="showTime == true">
+            <p>{{timeInPreparation | number: '1.0-0'}}</p>
+        </mat-card-actions>
+        <mat-card-actions *ngIf="showTime == false">
+            <button mat-flat-button color="Primary" (click)="closeOrder()">Wydano</button>
+        </mat-card-actions>
+    </mat-card-footer>
 </mat-card> 

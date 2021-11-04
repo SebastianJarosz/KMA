@@ -2,7 +2,9 @@ import { Time } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
 import { map } from 'rxjs/operators';
+import { UrlSettings } from 'src/app/shared/models/url-settings.model';
 import { Order, OrderPostion } from '../../models/order.model';
+import { OrderService } from '../../services/order.service';
 
 @Component({
   selector: 'app-order-ticket',
@@ -23,7 +25,8 @@ export class OrderTicketComponent implements OnInit {
   showTime?: boolean;
   orderPostionStringList?: Array<string>;
 
-  constructor() { }
+  constructor(private orderService: OrderService,
+    private url: UrlSettings,) { }
 
   @Input() order?: Order;
   @Input() orderIndex?: number;
@@ -53,8 +56,12 @@ export class OrderTicketComponent implements OnInit {
       this.showTime = false;
     }
   }
-  onSubmit(){
-
+  closeOrder(){
+    this.orderService
+      .putSetOrderStatus(`${this.url?.baseUrl}OrdersMenagment/v1/ChangeOrderStatusOnClosed/${this.orderGuid}`)
+      .subscribe(responseData => {
+        console.log(responseData);
+        });
   }
 
 }

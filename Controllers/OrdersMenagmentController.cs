@@ -230,6 +230,28 @@ namespace KMA.Controllers
                             await _orderToMenuPostionRepository.AddAsync(orderToMenuPostion);
                         }
                     }
+                    var returnedOrder = await this.GetOrder( orderGuid);
+                    return Ok(returnedOrder);
+                }
+                return StatusCode(409);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500);
+            }
+        }
+        // PUT api/<ProductsMenagmentController>/v1/ChangeOrderStatusOnReady/{orderGuid}
+        [HttpPut]
+        [Route("ChangeOrderStatusOnReady/{orderGuid}")]
+        public async Task<Object> PutChangeOrderStatusRready(string orderGuid)
+        {
+            try
+            {
+                var editOrder = await _orderRepository.GetAsync(orderGuid);
+                if (editOrder != null)
+                {
+                    editOrder.Status = Status.Ready;
+                    var updatedOrder = await _orderRepository.UpdateAsync(editOrder, orderGuid);
                     return Ok(updatedOrder);
                 }
                 return StatusCode(409);

@@ -16,9 +16,15 @@ export class OrderService {
      postData,
      {
        observe:'response'
-     }
-     );
+     });
   }
+
+   putSetOrderStatus(url: string){
+    return this.httpClient.put<Order>(url,
+      {
+        observe:'response'
+      });
+   }
 
   get(url: string){;
     return this.httpClient.get<Order>(url)

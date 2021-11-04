@@ -63,18 +63,29 @@ export class OrderTicketPostionComponent implements OnInit {
       );
   }
   updateOrderPostionStatus(): void{
-    // console.log(this.order);
-    console.log(this.order?.orderPostion?.entries);
-    this.updateOrderPostion = this.order?.orderPostion?[this.postionNumber]: null;
-    console.log(this.updateOrderPostion);
+    console.log(this.order?.orderPostion[this.postionNumber]);
+    this.updateOrderPostion = this.order?.orderPostion[this.postionNumber];
     this.updateOrderPostion.isReady = !this.isReady;
-    console.log(this.updateOrderPostion);
-    this.order?.orderPostion?[this.postionNumber] = this.updateOrderPostion: null;
-    console.log(this.order); 
+    let updateOrder = this.order; 
+    updateOrder.orderPostion[this.postionNumber] = this.updateOrderPostion; 
     this.orderService
-            .patch(`${this.url?.baseUrl}OrdersMenagment/v1/EditOrder/${this.orderGuid}`, this.order)
+            .patch(`${this.url?.baseUrl}OrdersMenagment/v1/EditOrder/${this.orderGuid}`, updateOrder)
             .subscribe(responseData => {
+              let flag = true;
               console.log(responseData);
-            }); 
+              responseData.body?.orderPostion?.forEach(element => {
+                if(element.isReady == false){
+                  flag = false;
+                }
+              });
+              console.log(flag);
+              if(flag){
+                this.orderService
+                .putSetOrderStatus(`${this.url?.baseUrl}OrdersMenagment/v1/ChangeOrderStatusOnReady/${this.orderGuid}`)
+                .subscribe(responseData => {
+                  console.log(responseData);
+                  });
+              }
+            });
   }
 }
