@@ -22,15 +22,13 @@ export class OldOrdersComponent implements OnInit {
   constructor(private orderService: OrderService, private url: UrlSettings) { }
 
   ngOnInit(): void {
-    const source = interval(2000);
-    this.subscription = source.subscribe(val => this.GetActiveOrders());
+    this.GetActiveOrders();
   }
 
 GetActiveOrders(){
   this.orderService.getAll(`${this.url.baseUrl}OrdersMenagment/v1/ClosedOrders`)
   .subscribe(responseData  => {
     this.orderList = responseData;
-    console.log(this.orderList);
     this.isNotEmpty = (this.orderList.length > 0) ? true : false;
     },
     error => {

@@ -21,6 +21,7 @@ export class OrderTicketPostionComponent implements OnInit {
   isNotEmpty?: boolean;
   error?: string;
   updateOrderPostion?: OrderPostion | any;
+  isAnOrderClosed?: boolean;
 
   constructor(private orderService: OrderService,
       private url: UrlSettings,
@@ -50,6 +51,12 @@ export class OrderTicketPostionComponent implements OnInit {
     .subscribe(responseData  => {
       this.order = responseData; 
       this.isNotEmpty = (this.order != null) ? true : false;
+      if(this.order.status == "Closed" || this.order.status =="Aborted"){
+        this.isAnOrderClosed = true;
+      }
+      else{
+        this.isAnOrderClosed = false;
+      }
       },
       error => {
           if(error.status == 404){
@@ -78,10 +85,15 @@ export class OrderTicketPostionComponent implements OnInit {
                   flag = false;
                 }
               });
-              console.log(flag);
               if(flag){
                 this.orderService
                 .putSetOrderStatus(`${this.url?.baseUrl}OrdersMenagment/v1/ChangeOrderStatusOnReady/${this.orderGuid}`)
+                .subscribe(responseData => {
+                  console.log(responseData);
+                  });
+              }else if(!flag && responseData.body?.status == "Ready"){
+                this.orderService
+                .putSetOrderStatus(`${this.url?.baseUrl}OrdersMenagment/v1/ChangeOrderStatusOnActive/${this.orderGuid}`)
                 .subscribe(responseData => {
                   console.log(responseData);
                   });

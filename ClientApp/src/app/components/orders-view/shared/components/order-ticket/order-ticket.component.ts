@@ -3,8 +3,11 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
 import { map } from 'rxjs/operators';
 import { UrlSettings } from 'src/app/shared/models/url-settings.model';
+import { Color } from 'src/app/shared/models/color.model';
 import { Order, OrderPostion } from '../../models/order.model';
 import { OrderService } from '../../services/order.service';
+import { MessageText } from 'src/app/shared/models/messageText.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-order-ticket',
@@ -13,8 +16,6 @@ import { OrderService } from '../../services/order.service';
 })
 export class OrderTicketComponent implements OnInit {
 
-  orderForm: FormGroup = new FormGroup({});
-  orderPostionArray = new FormArray([]);
   orderGuid?: string;
   orderNumber?: number;
   modificationTime?: Date;
@@ -24,9 +25,13 @@ export class OrderTicketComponent implements OnInit {
   timeInPreparation?: number;
   showTime?: boolean;
   orderPostionStringList?: Array<string>;
+  buttonText?: string;
 
   constructor(private orderService: OrderService,
-    private url: UrlSettings,) { }
+    private router: Router,
+    private url: UrlSettings,
+    private color: Color,
+    private messageText: MessageText ){ }
 
   @Input() order?: Order;
   @Input() orderIndex?: number;
@@ -38,30 +43,62 @@ export class OrderTicketComponent implements OnInit {
     this.orderGuid = this.order?.orderGuid;
 
     if(this.status == "InProgress"){
-      this.statusColor = "#FEBD81"; 
+      this.statusColor = this.color.orderYellow; 
       this.showTime = true;
       if(this.showTime){
         this.timeInPreparation = (new Date().getTime() - new Date(this.order?.creationTime).getTime())/60000;
         if(this.timeInPreparation >= 30){
-          this.statusColor = "#ff6347";
+          this.statusColor = this.color.orderRed;
         }
       }
     }
     else if(this.status == "Ready"){
-      this.statusColor = "#8bffa4";
+      this.statusColor = this.color.orderGreen;
       this.showTime = false;
+      this.buttonText = this.messageText.orderButtonReadyText;
     }
     else{
-      this.statusColor = "#696868";
+      this.statusColor = this.color.orderGrey;
       this.showTime = false;
+      this.buttonText = this.messageText.orderButtonRevrtText;
     }
   }
-  closeOrder(){
-    this.orderService
-      .putSetOrderStatus(`${this.url?.baseUrl}OrdersMenagment/v1/ChangeOrderStatusOnClosed/${this.orderGuid}`)
-      .subscribe(responseData => {
-        console.log(responseData);
-        });
+  changeOrderStatus(){
+
+    console.log(this.order?.status);
+    switch (this.order?.status){
+      case "Ready":{
+        this.orderService
+            .putSetOrderStatus(`${this.url?.baseUrl}OrdersMenagment/v1/ChangeOrderStatusOnClosed/${this.orderGuid}`)
+            .subscribe(responseData => {
+              console.log(responseData);
+              });
+        break;
+      }
+      case "Closed":{
+        this.orderService
+            .putSetOrderStatus(`${this.url?.baseUrl}OrdersMenagment/v1/ChangeOrderStatusOnReady/${this.orderGuid}`)
+            .subscribe(responseData => {
+              console.log(responseData);
+              this.router.navigate([`/orders-view/active-orders`])
+              });
+        break; 
+      }
+      case "Aborted":{
+        this.orderService
+            .putSetOrderStatus(`${this.url?.baseUrl}OrdersMenagment/v1/ChangeOrderStatusOnActive/${this.orderGuid}`)
+            .subscribe(responseData => {
+              console.log(responseData);
+              this.router.navigate([`/orders-view/active-orders`])
+              });
+        break; 
+      }
+      default: { 
+        console.log("Unknow status of order!"); 
+        break; 
+     }
+    }
+    
   }
 
 }

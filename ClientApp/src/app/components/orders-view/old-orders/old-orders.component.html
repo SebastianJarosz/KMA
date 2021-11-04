@@ -5,12 +5,13 @@
         *ngFor="let order of orderList; let i = index" 
             class="row"
             [order]="order"
+            [orderIndex]="i"
         ></app-order-ticket>
     </mat-card-content>
     <mat-card-content
     *ngIf="!isNotEmpty">
         <mat-card-subtitle>
-            Brak ostatnich zamówień.
+            Brak aktualnych zamówień.
         </mat-card-subtitle>
     </mat-card-content>
 </mat-card>

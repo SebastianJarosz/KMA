@@ -95,7 +95,7 @@ namespace KMA.Controllers
                     var orderListDTO = orderList
                         .Select(order => _mapper.Map<OrderDTO>(order))
                         .Where(order => order.Status == Status.Ready.ToString())
-                        .OrderBy(order => order.CreationTime)
+                        .OrderByDescending(order => order.ModificationTime)
                         .ToList();
 
                     foreach (var orderDTO in orderListDTO)
@@ -154,7 +154,7 @@ namespace KMA.Controllers
                         .Select(order => _mapper.Map<OrderDTO>(order))
                         .Where(order => order.Status == Status.Closed.ToString()
                                || order.Status == Status.Aborted.ToString())
-                        .OrderBy(order => order.CreationTime)
+                        .OrderByDescending(order => order.ModificationTime)
                         .ToList();
 
                     foreach (var orderDTO in orderListDTO)
@@ -215,6 +215,7 @@ namespace KMA.Controllers
                 if (order != null)
                 {
                     var editOrder = _mapper.Map<Order>(model);
+                    editOrder.ModificationTime = DateTime.Now;
                     var updatedOrder = await _orderRepository.UpdateAsync(editOrder, orderGuid);
                     if (updatedOrder != null && model.OrderGuid == orderGuid)
                     {
@@ -251,6 +252,7 @@ namespace KMA.Controllers
                 if (editOrder != null)
                 {
                     editOrder.Status = Status.Ready;
+                    editOrder.ModificationTime = DateTime.Now;
                     var updatedOrder = await _orderRepository.UpdateAsync(editOrder, orderGuid);
                     return Ok(updatedOrder);
                 }
@@ -271,7 +273,8 @@ namespace KMA.Controllers
                 var editOrder = await _orderRepository.GetAsync(orderGuid);
                 if (editOrder != null)
                 {
-                    editOrder.Status = Status.Closed; 
+                    editOrder.Status = Status.Closed;
+                    editOrder.ModificationTime = DateTime.Now;
                     var updatedOrder = await _orderRepository.UpdateAsync(editOrder, orderGuid);
                     return Ok(updatedOrder);
                 }

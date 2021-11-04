@@ -22,7 +22,7 @@
             <p>{{timeInPreparation | number: '1.0-0'}}</p>
         </mat-card-actions>
         <mat-card-actions *ngIf="showTime == false">
-            <button mat-flat-button color="Primary" (click)="closeOrder()">Wydano</button>
+            <button mat-flat-button color="Primary" (click)="changeOrderStatus()">{{buttonText}}</button>
         </mat-card-actions>
     </mat-card-footer>
 </mat-card> 

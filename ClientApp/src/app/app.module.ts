@@ -26,7 +26,6 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatRadioModule } from '@angular/material/radio';
 
-
 import { OrdersViewComponent } from './components/orders-view/orders-view.component';
 import { ActiveOrdersComponent } from './components/orders-view/active-orders/active-orders.component';
 import { OldOrdersComponent } from './components/orders-view/old-orders/old-orders.component';
@@ -38,6 +37,8 @@ import { InprogressComponent } from './components/customer-view/inprogress/inpro
 import { ReadyComponent } from './components/customer-view/ready/ready.component';
 import { OrderTicketComponent } from './components/orders-view/shared/components/order-ticket/order-ticket.component';
 import { OrderTicketPostionComponent } from './components/orders-view/shared/components/order-ticket-postion/order-ticket-postion.component';
+import { Color } from './shared/models/color.model';
+import { MessageText } from './shared/models/messageText.model';
 
 
 @NgModule({
@@ -82,6 +83,8 @@ import { OrderTicketPostionComponent } from './components/orders-view/shared/com
   providers: [
     UrlSettings,
     OrderService,
+    Color,
+    MessageText,
   ],
   bootstrap: [AppComponent]
 })
