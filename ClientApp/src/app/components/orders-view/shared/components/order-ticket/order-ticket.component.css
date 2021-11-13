@@ -1,6 +1,6 @@
 .mat-card{
     background-color: rgba(245, 245, 245, 0.8);
-    backdrop-filter: blur(6px);
+    backdrop-filter: blur(10px);
     padding: 0;
     min-height: 200px;
     max-height: 600px;

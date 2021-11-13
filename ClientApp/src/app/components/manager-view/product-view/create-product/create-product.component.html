@@ -1,0 +1,72 @@
+<h2 mat-dialog-title>Dodaj nowy produkt</h2>
+<mat-divider></mat-divider>
+<br>
+<form [formGroup]="createProductForm" (ngSubmit)="onSubmit()">
+    <mat-dialog-content>
+        <div class="container">
+            <div class="left-row">
+                <mat-form-field hintLabel="Nazwa nie może przekroczyć" appearance="fill">
+                    <mat-label>Wprowaź nazwę produktu</mat-label>
+                    <input 
+                    matInput 
+                    formControlName="name" 
+                    #input maxlength="255"
+                    required>
+                    <mat-hint align="end">{{input.value?.length || 0}}/255</mat-hint>
+                    <div class="errors">
+                        <mat-error *ngIf="error != 'NoErrors'">{{error}}</mat-error>
+                    </div>
+                </mat-form-field>
+                <mat-form-field hintLabel="Kod prodkutu nie może przekroczyć" appearance="fill">
+                    <mat-label>Wprowadź kod prodkutu</mat-label>
+                    <input
+                    formControlName="productCode" 
+                    matInput 
+                    #input maxlength="4" 
+                    required>
+                    <mat-hint align="end">{{input.value?.length || 0}}/4</mat-hint>
+                    <div class="errors">
+                        <mat-error *ngIf="error != 'NoErrors'">{{error}}</mat-error>
+                    </div>
+                </mat-form-field>
+                <mat-checkbox 
+                formControlName="countable" 
+                >Produkt policzalny</mat-checkbox>
+            </div>
+            <div class="right-row">
+                <mat-form-field appearance="fill">
+                    <mat-label>Wybierz jednostę miary</mat-label>
+                    <mat-select
+                    matInput 
+                    formControlName="measureUnit"  
+                    required>
+                        <mat-option *ngFor="let measureUnit of measureUnitOption" [value]="measureUnit.value">
+                          {{measureUnit.viewValue}}
+                        </mat-option>
+                      </mat-select>
+                </mat-form-field>        
+                <mat-form-field appearance="fill">
+                    <mat-label>Wybierz jednostę sprzedaży</mat-label>
+                    <mat-select
+                    matInput 
+                    formControlName="sellUnit"  
+                    required>
+                        <mat-option *ngFor="let measureUnit of measureUnitOption" [value]="measureUnit.value">
+                          {{measureUnit.viewValue}}
+                        </mat-option>
+                      </mat-select>
+                </mat-form-field> 
+                <mat-checkbox 
+                formControlName="isStockMenagment" 
+                >Aktywne zarządzanie stanem</mat-checkbox>
+                <div class="errors">
+                </div>
+            </div>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close>Anuluj</button>
+      <button type="submit" mat-raised-button color="accent" [disabled]="createProductForm?.invalid" [mat-dialog-close]="true" cdkFocusInitial>Zapisz</button>
+    </mat-dialog-actions>
+</form>
+    

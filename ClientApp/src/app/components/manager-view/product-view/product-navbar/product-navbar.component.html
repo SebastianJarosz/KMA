@@ -1,0 +1,21 @@
+<mat-toolbar>
+
+    <div>
+        <button mat-raised-button color="accent" (click)="openCreateProductDialog()"><mat-icon>add</mat-icon> Produkt</button>
+    </div>
+    <span class="spacer"></span>
+    <!-- <div class="search-box">
+        <mat-form-field appearance="fill">
+            <mat-label>Wyszukaj produkt</mat-label>
+            <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                {{option.name}}
+            </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+    </div> -->
+    <div>
+        <button mat-button color="base" (click)="closeProductBrowser()"><mat-icon>close</mat-icon></button>    
+    </div>
+</mat-toolbar>

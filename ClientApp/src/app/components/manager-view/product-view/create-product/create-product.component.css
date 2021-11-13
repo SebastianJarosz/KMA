@@ -1,0 +1,18 @@
+.container{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 12px 12px; 
+}
+
+.mat-form-field{
+    width: 250px;
+    margin: 12px 12px;
+}
+.mat-checkbox{
+    margin: 10px 10px;
+}
+.mat-raised-button{
+    width: 200px;
+    align-items: center; 
+}

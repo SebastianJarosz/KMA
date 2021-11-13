@@ -1,0 +1,40 @@
+<div class="container">
+  <mat-card class="login-card" [class.mat-elevation-z12]="true">
+    <mat-card-header>
+      <mat-card-title>
+        Logowanie do KMA
+      </mat-card-title>
+    </mat-card-header>
+    <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+      <mat-card-content>
+        <mat-form-field appearance="fill">
+          <mat-label>Nazwa użytkownika</mat-label>
+          <input 
+          matInput 
+          formControlName="userName" 
+          required>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill">
+          <mat-label>Wprowadź hasło</mat-label>
+          <input matInput
+          formControlName="password" 
+          [type]="hide ? 'password' : 'text'">
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+        <div class="errors">
+          <mat-error *ngIf="error != 'NoErrors'">{{error}}</mat-error>
+        </div>
+        <mat-card-actions>
+          <button mat-raised-button color="primary" [disabled]="signInForm.invalid">Zaloguj się</button>
+        </mat-card-actions>
+      </mat-card-content>
+    </form>
+
+      <section *ngIf="isFetching">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      </section>
+</mat-card>
+</div>

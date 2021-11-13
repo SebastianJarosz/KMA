@@ -1,0 +1,50 @@
+.custom-nav-bar{
+    background-color: #76A9FF;
+    height: 8vh;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 0 0 15px 15px;
+}
+.logo{
+    background: url(..\..\..\shared\img\kma-logo.png) center center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 10%;
+}
+.clock{
+    background: url(..\..\..\shared\img\clock-bg.png) center center;
+    align-self: flex-start;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 80%;
+    height: 6vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+    font-weight: 800;
+}
+.exit{
+
+    display: flex;
+    justify-content:right;
+    align-self: center;
+
+}
+.mat-icon {
+    background-repeat: no-repeat;
+    display: inline-block;
+    fill: currentColor;
+    height: 48px;
+    width: 48px;
+    font-size: 48px;
+    color: rgb(0, 0, 0);
+}
+.log-out{
+    background: url(..\..\..\shared\img\logout.png) center center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 36px;
+    height: 36px;
+}

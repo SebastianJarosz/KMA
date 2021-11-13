@@ -1,0 +1,9 @@
+<h2 mat-dialog-title>Usuń produkt</h2>
+<mat-dialog-content class="mat-typography">
+Czy napewno usunąć produkt: "{{data.name}}"?
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Anuluj</button>
+  <button mat-raised-button color="warn" [mat-dialog-close]="true" (click)="deleteProduct()" cdkFocusInitial>Usuń</button>
+</mat-dialog-actions>
+

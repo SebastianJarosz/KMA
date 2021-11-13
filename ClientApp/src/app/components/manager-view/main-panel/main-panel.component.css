@@ -1,0 +1,31 @@
+.container{
+    display: flex;
+    align-content: space-between;
+    justify-content: center;
+    height: 84vh;
+    width: 100%;
+}
+.product{
+    background: url(..\..\..\shared\img\product.png) center center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    scale: 0.95;
+    padding: 30%;
+}
+.menu-postion{
+    background: url(..\..\..\shared\img\manu-postion.png) center center;
+    background-size: contain;
+    scale: 1.05;
+    background-repeat: no-repeat;
+    padding: 30%;
+}
+button{
+    align-self: center;
+    height: 426px;
+    width: 426px;
+    margin: 0 5%;
+    background-color: rgba(118, 168, 255, 0.78) !important;
+    backdrop-filter: blur(8px);
+    border-radius: 15px;    
+    border: solid 1px whitesmoke;
+}

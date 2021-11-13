@@ -1,0 +1,15 @@
+<div class="custom-nav-bar">
+    <div class="logo">
+        
+    </div>
+    <div class="clock">
+      <div class="clock-time">
+        {{ rxTime | date : 'H:mm'}}
+      </div>
+    </div> 
+    <div class="exit">
+        <button mat-button (click)="logOut()">
+            <mat-icon>exit_to_app</mat-icon>
+        </button>
+    </div>
+</div>

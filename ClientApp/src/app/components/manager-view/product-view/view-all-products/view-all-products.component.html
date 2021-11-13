@@ -1,0 +1,74 @@
+<div class="container">
+        <mat-form-field class="bg-search" appearance="standard">
+          <mat-label>Szukaj produktu</mat-label>
+          <input matInput (keyup)="applyFilter($event)" #input>
+        </mat-form-field>
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+            <!--- Note that these columns can be defined in any order.
+                  The actual rendered columns are set as a property on the row definition" -->
+          
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Nazwa produktu </th>
+              <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
+          
+            <!-- Weight Column -->
+            <ng-container matColumnDef="productCode">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Kod produktu </th>
+              <td mat-cell *matCellDef="let element"> {{element.productCode}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="measureUnit">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Jednostka miary </th>
+              <td mat-cell *matCellDef="let element"> {{element.measureUnit}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="sellUnit">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Jednostka sprzedaży </th>
+              <td mat-cell *matCellDef="let element"> {{element.sellUnit}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="countable">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Czy produkt <br> jest  policzalny </th>
+              <td mat-cell *matCellDef="let element"><mat-icon *ngIf="element.countable">check_circle</mat-icon></td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="isStockMenagment">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Czy aktywne jest <br> zarządzanie stanem </th>
+              <td mat-cell *matCellDef="let element"><mat-icon *ngIf="element.isStockMenagment">check_circle</mat-icon></td>
+            </ng-container>
+
+            <ng-container matColumnDef="Edit">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-icon-button (click)="openEditProductDialog(element)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Delete">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-icon-button (click)="openDeleteProductDialog(element)"> 
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+            <tr class="mat-row" *matNoDataRow>
+              <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+            </tr>
+          </table>
+        
+          <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="wybierz strone z produktami"></mat-paginator>
+</div>

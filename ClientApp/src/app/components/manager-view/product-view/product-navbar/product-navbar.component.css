@@ -1,0 +1,27 @@
+mat-toolbar{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: #76A9FF !important;
+    color:whitesmoke;
+    border-radius: 12px 12px 0 0;
+}
+.mat-form-field{    
+    font-size:  12px;
+    padding-top: 1.3437em;
+}
+.spacer{
+    flex: 1 1 auto;
+}
+button{
+    font-size: 18px;
+}
+.mat-icon {
+    background-repeat: no-repeat;
+    display: inline-block;
+    fill: currentColor;
+    height: 36px;
+    width: 36px;
+    font-size: 32px;
+    color: rgb(0, 0, 0);
+}
