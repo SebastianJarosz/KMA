@@ -69,6 +69,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { AuthGuardService } from './shared/auth/auth-guard.service';
 import { AuthService } from './shared/auth/auth.service';
 import { AuthInterceptorService } from './shared/auth/auth-interceptor.service';
+import { MenuPostionNavbarComponent } from './components/manager-view/menu-postion-view/menu-postion-navbar/menu-postion-navbar.component';
 
 
 @NgModule({
@@ -102,6 +103,7 @@ import { AuthInterceptorService } from './shared/auth/auth-interceptor.service';
     ViewAllProductsComponent,
     ViewAllMenuPostionsComponent,
     ProductNavbarComponent,
+    MenuPostionNavbarComponent,
   ],
   imports: [
     BrowserModule,

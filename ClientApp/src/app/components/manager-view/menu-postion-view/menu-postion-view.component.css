@@ -1,0 +1,15 @@
+.container{
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    height: 84vh;
+    width: 100%;
+}
+.menu-postion-panel{
+    align-self: center;
+    width: 90%;
+    height: 90%;
+}
+.router-outlet{
+    width: 100%;
+}

@@ -1,0 +1,10 @@
+.container{
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: white;
+}
+.bg-search{
+    padding: 0 24px;
+}
