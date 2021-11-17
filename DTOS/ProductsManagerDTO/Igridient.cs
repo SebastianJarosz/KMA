@@ -6,6 +6,6 @@ namespace KMA.DTOS.ProductManager
     {
         public string ProductName { get; set; }
         public string ProductCode { get; set; }
-        public string QuantityOfProduct { get; set; }
+        public float QuantityOfProduct { get; set; }
     }
 }

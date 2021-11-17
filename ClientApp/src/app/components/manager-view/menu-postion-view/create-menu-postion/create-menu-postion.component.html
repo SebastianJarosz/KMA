@@ -1,7 +1,7 @@
 <h2 mat-dialog-title>Dodaj nowy zestaw</h2>
 <mat-divider></mat-divider>
 <br>
-<form [formGroup]="createMenuPostionForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="createMenuPostionForm" (ngSubmit)="onNewMenuPostionSubmit()">
     <mat-dialog-content>
         <div class="container">
             <div class="row-sm">
@@ -34,9 +34,9 @@
                     <input 
                     matInput 
                     formControlName="plu" 
-                    #input maxlength="255"
+                    #input maxlength="4"
                     required>
-                    <mat-hint align="end">{{input.value?.length || 0}}/255</mat-hint>
+                    <mat-hint align="end">{{input.value?.length || 0}}/4</mat-hint>
                     <div class="errors">
                         <mat-error *ngIf="error != 'NoErrors'">{{error}}</mat-error>
                     </div>
@@ -46,7 +46,7 @@
                     <input
                     type="number"
                     step="0.5"
-                    formControlName="menuPostionCode" 
+                    formControlName="unitPrice" 
                     matInput 
                     #input maxlength="4" 
                     required>
@@ -55,68 +55,8 @@
                     </div>
                 </mat-form-field>
             </div>
-            <!-- <div class="row-lg">       
-                <form class="example-form">
-                    <mat-form-field appearance="fill">
-                      <mat-label>Wybierz produkt</mat-label>
-                      <input type="text" required matInput [formControl]="autoCompleteBoxControl" [matAutocomplete]="auto">
-                      <mat-autocomplete #auto="matAutocomplete" [displayWith]="getOptionText">
-                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                          {{option.name}}
-                        </mat-option>
-                      </mat-autocomplete>
-                    </mat-form-field>
-                  </form>                  
-            </div> -->
-            <div class="example-container mat-elevation-z8">
-                <table mat-table [dataSource]="dataSource" >
-                <!-- Checkbox Column -->
-                <ng-container matColumnDef="select">
-                    <th mat-header-cell *matHeaderCellDef>
-                    <mat-checkbox (change)="$event ? masterToggle() : null"
-                                    [checked]="selection.hasValue() && isAllSelected()"
-                                    [indeterminate]="selection.hasValue() && !isAllSelected()"
-                                    [aria-label]="checkboxLabel()">
-                    </mat-checkbox>
-                    </th>
-                    <td mat-cell *matCellDef="let row">
-                    <mat-checkbox (click)="$event.stopPropagation()"
-                                    (change)="$event ? selection.toggle(row) : null"
-                                    [checked]="selection.isSelected(row)"
-                                    [aria-label]="checkboxLabel(row)">
-                    </mat-checkbox>
-                    </td>
-                </ng-container>
-                
-                <!-- Position Column -->
-                <ng-container matColumnDef="position">
-                    <th mat-header-cell *matHeaderCellDef> Nr </th>
-                    <td mat-cell *matCellDef="let element"> {{element.position}} </td>
-                </ng-container>
-                
-                <!-- Name Column -->
-                <ng-container matColumnDef="name">
-                    <th mat-header-cell *matHeaderCellDef> Nazwa </th>
-                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-                </ng-container>
-                
-                <!-- Weight Column -->
-                <ng-container matColumnDef="productCode">
-                    <th mat-header-cell *matHeaderCellDef> Kod produktu </th>
-                    <td mat-cell *matCellDef="let element"> {{element.productCode}} </td>
-                </ng-container>
-                
-                <!-- Symbol Column -->
-                <ng-container matColumnDef="quantityOfProduct">
-                    <th mat-header-cell *matHeaderCellDef> Ilość produktu </th>
-                    <td mat-cell *matCellDef="let element"> {{element.quantityOfProduct}} </td>
-                </ng-container>
-                
-                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;">
-                    (click)="selection.toggle(row)">
-                </tr>
-                </table>
+            <div class="row-lg">
+                <app-products-postions></app-products-postions>
             </div>
         </div>
     </mat-dialog-content>

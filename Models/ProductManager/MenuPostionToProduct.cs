@@ -16,7 +16,7 @@ namespace KMA.Models.ProductManager
         [Required]
         public string ProductCode { get; set; }
         [Required]
-        public string QuantityOfProduct { get; set; }
+        public float QuantityOfProduct { get; set; }
 
     }
 }

@@ -54,8 +54,6 @@ export class ViewAllMenuPostionsComponent implements OnInit {
         }
       );
   }
-  ngAfterViewInit(): void {
-  }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -65,11 +63,11 @@ export class ViewAllMenuPostionsComponent implements OnInit {
     }
   }
 
-  openDeleteProductDialog(menuPostion: MenuPostion) {
+  openDeleteMenuPostionDialog(menuPostion: MenuPostion) {
     this.dialog.open(DeleteMenuPostionComponent, {
       data: {
         name: menuPostion.name,
-        productCode: menuPostion.menuPostionCode,
+        menuPostionCode: menuPostion.menuPostionCode,
       },
     });
   }

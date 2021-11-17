@@ -3,15 +3,17 @@ using System;
 using KMA.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace KMA.Migrations
 {
     [DbContext(typeof(KMADbContext))]
-    partial class KMADbContextModelSnapshot : ModelSnapshot
+    [Migration("20211117094944_Change_type_of_QuantityOfProduct")]
+    partial class Change_type_of_QuantityOfProduct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

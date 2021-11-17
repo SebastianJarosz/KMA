@@ -5,5 +5,5 @@ export class MenuPostion{
     menuPostionCode?: string | any;
     unitPrice?: number | any;
     plu?: string | any;
-    products?: Array<Product> | any;
+    products = new Array<Product>();
 }

@@ -1,0 +1,39 @@
+<div class="example-container mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" >
+    
+    <!-- Position Column -->
+    <ng-container matColumnDef="position">
+        <th mat-header-cell *matHeaderCellDef> Nr </th>
+        <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+    </ng-container>
+    
+    <!-- Name Column -->
+    <ng-container matColumnDef="productName">
+        <th mat-header-cell *matHeaderCellDef> Nazwa </th>
+        <td mat-cell *matCellDef="let element"> {{element.productName}} </td>
+    </ng-container>
+    
+    <!-- Weight Column -->
+    <ng-container matColumnDef="productCode">
+        <th mat-header-cell *matHeaderCellDef> Kod produktu </th>
+        <td mat-cell *matCellDef="let element"> {{element.productCode}} </td>
+    </ng-container>
+    
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="quantityOfProduct">
+        <th mat-header-cell *matHeaderCellDef> Ilość produktu </th>
+        <td mat-cell align="center" *matCellDef="let element">
+            <button type="button" mat-button (click)="removePostion(element)">-</button>{{element.quantityOfProduct | number:'.0-2'}}<button type="button" mat-button (click)="addPostion(element)">+</button>
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="unit">
+        <th mat-header-cell *matHeaderCellDef> Jednostka miary </th>
+        <td mat-cell *matCellDef="let element"> {{element.unit}} </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+        (click)="selection.toggle(row)">
+    </tr>
+    </table>
+</div>

@@ -70,6 +70,7 @@ import { AuthGuardService } from './shared/auth/auth-guard.service';
 import { AuthService } from './shared/auth/auth.service';
 import { AuthInterceptorService } from './shared/auth/auth-interceptor.service';
 import { MenuPostionNavbarComponent } from './components/manager-view/menu-postion-view/menu-postion-navbar/menu-postion-navbar.component';
+import { ProductsPostionsComponent } from './components/manager-view/menu-postion-view/shared/components/products-postions/products-postions.component';
 
 
 @NgModule({
@@ -104,6 +105,7 @@ import { MenuPostionNavbarComponent } from './components/manager-view/menu-posti
     ViewAllMenuPostionsComponent,
     ProductNavbarComponent,
     MenuPostionNavbarComponent,
+    ProductsPostionsComponent,
   ],
   imports: [
     BrowserModule,

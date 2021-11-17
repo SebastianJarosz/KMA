@@ -1,5 +1,5 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
@@ -10,7 +10,8 @@ import { UrlSettings } from 'src/app/shared/models/url-settings.model';
 import { Product } from '../../product-view/shared/models/product.model';
 import { ProductService } from '../../product-view/shared/services/product.service';
 import { MenuPostion } from '../shared/models/menuPostion.model';
-import { MenuPostionElement } from '../shared/models/MenuPostionElement.model';
+import { MenuPostionElement } from '../shared/models/menuPostionElement.model';
+import { ProductRequest } from '../shared/models/postionRequest.model';
 import { MenuPostionService } from '../shared/services/menu-postion.service';
 
 @Component({
@@ -18,101 +19,53 @@ import { MenuPostionService } from '../shared/services/menu-postion.service';
   templateUrl: './create-menu-postion.component.html',
   styleUrls: ['./create-menu-postion.component.css']
 })
-export class CreateMenuPostionComponent implements OnInit {
+export class CreateMenuPostionComponent implements OnInit{
 
   createMenuPostionForm: FormGroup = new FormGroup({});
-  menuPostionList: Array<MenuPostion> | any;
-  filteredOptions: Observable<Product[]> | any;
-  productAutoCompliteBoxList?: Array<Product>;
   products = new FormArray([]);
   isFetching: boolean = false;
   error: string='NoErrors';
   isNotEmpty?: boolean;
-  productShortList: Array<MenuPostionElement> | any;
-  dataSource: MatTableDataSource<MenuPostionElement> | any = new MatTableDataSource<MenuPostionElement>();
-  selection = new SelectionModel<MenuPostionElement>(true, []);
-  displayedColumns: string[] = ['select', 'position','name', 'productCode',  'quantityOfProduct'];
+
+
 
   constructor(private menuPostionService: MenuPostionService,
-      private productService: ProductService,
       private url: UrlSettings,
       public dialog: MatDialog,
       private router: Router) { }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.createMenuPostionForm = new FormGroup({
       'name': new FormControl(null, Validators.required),
       'menuPostionCode': new FormControl(null, Validators.required),
       'unitPrice': new FormControl(null, Validators.required),
-      'plu': new FormControl(null),
+      'plu': new FormControl(null, Validators.required),
       'products':this.products,
     });
-    this.productService.getAllProduct(`${this.url.baseUrl}ProductsMenagment/v1/Products`)
-    .subscribe(responseData  => {
-      let i = 0;
-      this.productShortList = new Array<MenuPostionElement>();
-      responseData.forEach(element => {
-        i++;
-        let product = new MenuPostionElement();
-        product.position = i;
-        product.name = element.name;
-        product.productCode = element.productCode;
-        product.quantityOfProduct = 0;
-        this.productShortList.push(product);
-      });
-      this.dataSource = new MatTableDataSource(this.productShortList);
-      },
-      error => {
-          if(error.status == 404){
-            this.error = 'Błędny aders';
-            console.error('Błędny aders');
-          }else if(error.status == 500){
-            this.error = 'Błąd połączenia z serwerem';
-            console.error('Błąd połaczeniaz serwerem');
-          }
-        }
-      );
-  }
-  getOptionText(option: Product) {
-    if(option){
-      return option.name;
-    }
-  }
-  addProduct(option: Product) {
-      console.log(option.name);
-  }
-  private _filter(name: string): Product[] {
-    const filterValue = name.toString().toLowerCase();
-    if(this.productAutoCompliteBoxList){
-      return this.productAutoCompliteBoxList.filter(product => product.name.toLowerCase().includes(filterValue));
-    }
-    return new Array<Product>();
   }
 
-  addShopPostion(): void{
-    const control = new FormGroup({ 
-      'productName': new FormControl(null, Validators.required),
-      'productCode': new FormControl(null, Validators.required),
-      'quantityOfProduct': new FormControl(null, Validators.required),
-      });
-      this.products.push(control);
-  }
-  removePostion(pos: number): void{
-    this.products.removeAt(pos);
-  }
-
-  async onSubmit(){
+  onNewMenuPostionSubmit(){
     let menuPostion = new MenuPostion();
     menuPostion.name = this.createMenuPostionForm.value.name.toString(),
     menuPostion.menuPostionCode = this.createMenuPostionForm.value.menuPostionCode.toString();
     menuPostion.unitPrice = this.createMenuPostionForm.value.unitPrice.toString();
-    menuPostion.products = this.products;
-    console.log(menuPostion);
-    await this.createMenuPostion(menuPostion);
-    
+    menuPostion.plu = this.createMenuPostionForm.value.plu.toString();
+    let products = new Array<ProductRequest>(); 
+    this.menuPostionService.productList.forEach(element => { 
+      if(element.quantityOfProduct > 0.0){
+          let product =  new ProductRequest();
+          product.productName = element.productName;
+          product.productCode = element.productCode;
+          product.quantityOfProduct = element.quantityOfProduct
+          products.push(product);
+        }
+      menuPostion.products = products;
+    });
+    this.createMenuPostion(menuPostion);
   }
-  createMenuPostion (newmenuPostion: MenuPostion): void{
-    this.menuPostionService.createMenuPostion(`${this.url.baseUrl}menuPostionsMenagment/v1/AddmenuPostion`, newmenuPostion)
+  
+  createMenuPostion (newMenuPostion: MenuPostion): void{
+    this.menuPostionService.createMenuPostion(`${this.url.baseUrl}ProductsMenagment/v1/AddmenuPostion`, newMenuPostion)
     .subscribe(responseData  => {
       console.log(responseData);
       let currentUrl = this.router.url;
@@ -130,28 +83,5 @@ export class CreateMenuPostionComponent implements OnInit {
           }
         }
       );  
-  }
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
-  }
-
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle() {
-    if (this.isAllSelected()) {
-      this.selection.clear();
-      return;
-    }
-
-    this.selection.select(...this.dataSource.data);
-  }
-
-  /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: MenuPostionElement): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
   }
 }
