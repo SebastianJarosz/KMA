@@ -23,7 +23,13 @@
     <ng-container matColumnDef="quantityOfProduct">
         <th mat-header-cell *matHeaderCellDef> Ilość produktu </th>
         <td mat-cell align="center" *matCellDef="let element">
-            <button type="button" mat-button (click)="removePostion(element)">-</button>{{element.quantityOfProduct | number:'.0-2'}}<button type="button" mat-button (click)="addPostion(element)">+</button>
+            <button type="button" mat-button (click)="removePostion(element)">
+                <mat-icon>remove_circle_outline</mat-icon>
+            </button>
+                {{element.quantityOfProduct | number:'.0-2'}}
+            <button type="button" mat-button (click)="addPostion(element)">
+                <mat-icon>add_circle_outline</mat-icon>
+            </button>
         </td>
     </ng-container>
 
